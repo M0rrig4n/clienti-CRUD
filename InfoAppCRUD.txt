@@ -1,0 +1,56 @@
+Questa semplice applicazione effettua le operazioni CRUD interagendo con un database. 
+I dati possono essere quindi creati tramite un form, raccolti e mostrati nella pagina principale,
+modificati ed infine, cancellati.
+Gli elementi del progetto sono i componenti React necessari e la cartella "api" che si trova,
+localmente, nella cartella dedicata all'applicazione XAMPP, utilizzata per testare il progetto.
+Di seguito, una breve descrizione dei diversi file.
+
+main.jsx:
+Dopo aver importato le diverse dependencies, il contenuto dell'elemento con Id "root" del documento viene controllato da React.
+Il component App si trova all'interno della StrictMode di React, che permette di risolvere alcuni problemi e bug apparentemente minori e secondari durante la scrittura del codice.
+Il file "main.jsx" viene richiamato nell'attributo "src" di index.html.
+
+App.jsx:
+Prima di scrivere il codice del componente App, importo il css, bootstrap, gli altri componenti e BrowserRouter, Routes, Route e Link.
+In BrowserRouter riunisco l'output dell'applicazione e, tramite esso, instrado tutti i componenti che, nella pratica, non saranno necessariamente presentati nella stessa pagina. Grazie a Routes, la sua proprietà "path" e Link, infatti, posso direzionare i componenti a pagine diverse da quella principale.
+All'interno di BrowserRouter, nel mio caso, si trova ListCliente, che presenta la pagina principale. A seguire, CreateCliente e EditCliente, i componenti che creano un nuovo utente e modificano i dati di un utente rispettivamente alle pagine "cliente/create" e "cliente/:id/edit".
+
+ListCliente.jsx:
+Negli import ho inserito React, le sue funzioni useEffect e useState, i precedentemente citati BrowserRouter, Routes, Route e Link e, infine, axios. Grazie ad Axios, libreria di Javascript, posso mandare e ricevere richieste HTTP e interagire con le API che si trovano nella cartella "api", legata al localhost (127.0.0.1) di XAMPP, dove si trova il database che ho utilizzato per effettuare le operazioni CRUD.
+Nella funzione ListCliente ho utilizzato una state-variable e una setter-function unite all'hook useState, che permette di conservarne i valori e lo stato corrente. Richiamando la funzione successiva, getClienti, posso mostrare tutti i dati dei clienti presenti nel database mandando una richiesta GET al localhost.
+La funzione deleteCliente prende come parametro l'id del cliente, tramite l'uso di axios richiamo il metodo "delete" presente in index.php che cancella i dati del cliente con l'id inviato; infine, chiamo la funzione getClienti e mostro la nuova lista di clienti.
+Il componente ritorna una tabella con 5 colonne: 4 dedicate ai campi della table "clienti" nel database "clienticrud" (Id, Nome, Cognome, Contatti) ed una quinta usata per contenere i bottoni che permettono di modificare o cancellare i dati di un cliente.
+Nel body della tabella le righe saranno riempite con i dati raccolti dal getClienti presente all'inizio del codice utilizzando il metodo map.
+Il bottone per modificare i dati indirizza al form di modifica, mentre quello dedicato alla cancellazione dei dati richiede una conferma prima di effettuare l'azione.
+
+CreateCliente.jsx:
+Oltre l'import di useState, React e axios, importo anche useNavigate, hook di React che permette all'utente di muoversi attraverso le diverse pagine dell'applicazione.
+All'inizio del componente CreateCliente, infatti, viene create la costante "navigate", a cui viene attribuita la funzione useNavigate(). Di seguito, uso useState per interagire con la state-variable creata, "inputs".
+Nella funzione return viene mostrato un form che richiede i dati del cliente che si vuole creare.
+I dati vengono raccolti tramite la funzione handleChange che, passatole l'"event", considera il nome dell'elemento che sta venendo modificato e i valori che sono stati inseriti. Per raccogliere effettivamente i dati, uso la funzione setter "setInputs", che naviga attraverso l'array di valori e li attribuisce ai nomi rispettivi.
+Con handleSubmit, che viene eseguita quando viene premuto il pulsate "Crea", mandiamo, tramite il axios e il metodo post, i dati raccolti, che verranno gestiti in index.php. All'inizio della funzione ho inserito "event.preventDefault()", che blocca l'azione predefinita dell'evento. Infine, navigo alla pagina principale, dove getUsers mostrerà la nuova lista di clienti.
+
+EditCliente.jsx:
+In aggiunta agli import precedenti, in EditCliente si può leggere useParams, che permette di accedere ai valori dei parametri dell'URL specificato nel percorso "Route path", ritornando un oggetto costituito da coppie key/value. Nel mio caso, nell'URL è presente ":id", l'id del cliente su cui si concentra la pagina.
+Grazie all'hook useEffect possiamo gestire ciò che accade all'esterno del nostro componente, come la raccolta dei dati dei clienti con getClienti.
+La funzione handleChange, chiamata quando cambiano i valori del form, funziona allo stesso modo di quella presente in CreateCliente, così come handleSubmit. La differenza è che, in questo caso, il metodo richiesto da axios è "put": vengono presi i dati presenti nel form e, nel caso di aggiornamento, inseriti come modifiche. Infine, anche qui, si viene rimandati alla pagina principale, con i dati aggiornati dei clienti. Nel form vengono proposti dei valori predefiniti per ogni input: quelli già presenti nella tabella del database.
+
+index.css:
+All'interno di questo file si trova il codice css dedicato allo stile della pagina. Lo stile è semplice e ho scelto, per coerenza, di utilizzare sempre rgb() per la scelta dei colori. Grazie a bootstrap, il lavoro sullo stylesheet è meno complesso.
+
+.htaccess:
+Il file è breve e dedicato alla riscrittura dell'URL: RewriteEngine settato a "on" per attivare la riscrittura; RewriteCond per riscrivere gli URL nel caso di richieste e RewriteRule con il parametro L, che indica l'ultima regola da interpretare. Con il file .htaccess possiamo, in generale dare istruzioni al web server Apache.
+
+DbConnect.php:
+Grazie a questo file php instauro, o almeno tento di farlo, una connessione con il database, inserendo tutti i parametri da utilizzare. La connessione avviene effettivamente all'interno della funzione connect() e "new PDO" (PHP Data Objects), estensione PHP che mi permette di accedere al database. In caso di errori, il "catch" cattura l'exception e manda il messaggio di errore.
+
+index.php:
+Prima di tutto, abilito l'error-reporting, configuro ini_set, includo il file DbConnect.php per avere l'accesso alla connessione al database e permetto, tramite "header" di interagire con diverse fonti esterne (Access-Control-Allow-Origin:_...).
+Creato un nuovo oggetto DbConnect, usiamo il metodo connect per creare la connessione. Il metodo che viene inviato al server viene richiesto tramite $\_SERVER['REQUEST_METHOD'] e gestito attraverso uno switch con diversi casi.
+Nel caso di GET, la richiesta è di ottenere i dati dei cliente presenti nella tabella del database. La query SQL sarà quindi: SELECT _ FROM clienti. Se voglio gestire i dati di un singolo cliente, avrò nell'URL il suo id quindi, prima di effettuare la query, controllo che sia presente l'id e, in caso positivo, aggiungo una seconda parte alla query "WHERE ID=:ID" e provo a connettermi al database preparando la query con il parametro :ID uguale a quello che si legge nell'URL. Eseguo la query e conservo i dati ottenuti trami te la funzione "fetch" in "clienti".
+Se i dati da ricevere sono quelli di tutti i clienti, mantengo la query iniziale, connetto, eseguo e "fetcho" tutto. Infine, codifico il risultato inserito in "clienti" in JSON e fermo l'esecuzione del case e dello switch.
+In caso di metodo POST, decodifico il contenuto di "clienti", preparo la query che mi permette di inserire i valori del nuovo cliente da creare, connetto ed eseguo. All'esecuzione dela query, la risposta può essere positiva o negativo, in ogni caso la mostro nella console e blocco case e switch.
+Nel caso di metodo PUT, agisco allo stesso modo ma con più controlli. PUT è quello che viene mandato quando viene richiesta la modifica dei dati di un utente. Dunque, prima di tutto decodifico i contenuti all'interno di "clientData" e controllo che effettivamente esistano. In caso negativo, errore e blocco dello switch.
+Se è presente un ID nell'URL, lo salviamo in cliendId, assicurandoci che sia di tipo "int". Scrivo la query all'interno di "sql" e controllo se sono stati inseriri dei nuovi dati all'interno degli input in base al loro nome. In caso positivo, aggiungo un controllo di posizione del valore, così da inserire correttamente le virgole nel caso decidessi di mostrarlo ed infine, inserisco il nuovo valore al nome del campo e setto isFirst a false.
+Se ci sono valori da aggiornare (se isFirst è false), aggiungo la condizione di Id alla query e la eseguo. In base alla risposta, sarà mostrato un errore o verranno modificati i dati. Se non viene aggiunto nessun dato nuovo ma vengono mantenuti i valori predefiniti, quando il pulsante viene cliccato, lo status 200 mi permette di tornare comunque alla pagina principale, mandando però un messaggio alla console in cui viene riferito che non ci sono informazioni nuove. Per finire, si chiude il case e lo switch.
+Nel caso di metodo Delete, si prepara la query, si recupera l'id dall'URL e si esegue. A seconda dello status della risposta verranno mostrati messaggi diversi ed infine, viene chiuso lo switch.
