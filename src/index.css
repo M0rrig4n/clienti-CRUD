@@ -1,0 +1,163 @@
+body {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(87, 66, 66, 0.87);
+  background-color: #c2c0c0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.menu{
+  background-color: rgba(56, 56, 75, 0.8);
+  width: 100%;
+  border-radius: 40px;
+}
+.menu a{
+  color: rgb(233, 211, 211);
+  padding: 0px 30px;
+  font-size: 1.1em;
+  display: inline;
+  font-family: 'Lucida Sans', 'Lucida Grande', Verdana, sans-serif;
+}
+.menu a:hover{
+  text-decoration: none;
+  color:rgb(158, 158, 236);
+  background-color: rgba(56, 56, 75, 0.10);
+  border-radius: 10px;
+}
+.menu a:focus{
+  color:rgb(30, 25, 25);
+}
+
+a{
+  font-weight: 500;
+  color: rgb(26, 26, 26);
+  text-decoration: inherit;
+}
+a:hover {
+  color: rgb(26, 26, 26);
+}
+.info-footer-txt a:hover{
+  color:rgba(140, 50, 50, 0.87);
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.titolo {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: rgb(37, 95, 53);
+  cursor: pointer;
+  transition: border-color 0.25s;
+  display: inline-flex;
+}
+.delete-button{
+  background-color: rgb(155, 35, 35);
+  color:rgb(238, 221, 223);
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+.edit-button {
+  color:rgb(221, 221, 238);
+  margin-bottom: 5px;
+  margin-right: 5px;
+  margin-left:10px;
+  margin-top: 10px;
+  padding-left:25px;
+}
+
+.create-cliente-button, .save-edit-button{
+  color: rgb(219, 243, 222);
+  margin-top:2%;
+}
+.create-cliente-button:hover, .save-edit-button:hover{
+  color: rgb(149, 234, 149);
+  background-color: rgb(12, 106, 12);
+}
+.delete-button:hover {
+  border-color: rgb(59, 37, 52);
+  background-color: rgb(214, 45, 45);
+  color: rgb(65, 41, 41);
+}
+.edit-button:hover {
+  border-color: rgb(59, 37, 52);
+  background-color: rgb(12, 106, 12);
+}
+.edit-button a{
+  color: rgb(149, 234, 149);
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.tblist-style td{
+  color: rgb(44, 27, 27);
+  font-weight: 500;
+  text-align:center;
+  vertical-align: middle;
+  padding: 0px 20px 0px 20px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.edit-form{
+  margin-top:5%;
+  font-size: 1.2em;
+}
+.edit-table td{
+  padding:2%;
+}
+.edit-table input:hover, input:focus{
+  background-color: rgb(214, 202, 202);
+}
+
+.form-create{
+  font-size: 1.2em;
+  margin-top: 8%;
+}
+.form-create label{
+  margin-right:20px;
+  padding:5%;
+}
+.form-create input:last-of-type{
+  margin-bottom: 10px;
+}
+.form-create input:hover,
+input:focus {
+  background-color: rgb(214, 202, 202);
+}
+
+.info-footer-txt{
+  font-size: 1.1em;
+  text-shadow: 1px 1px 1px rgba(195, 169, 169, 0.87);
+}
+.container-info{
+  text-align: left;
+}
+.container-info h5{
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.container-info p{
+  background-color: rgba(231, 200, 200, 0.1);
+}
